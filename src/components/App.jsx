@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
-import { RecipesPage } from '../pages/RecipesPage';
-import { BeerRecipePage } from '../pages/BeerRecipePage';
+import { RecipesPage } from 'pages/RecipesPage';
+import { BeerRecipePage } from 'pages/BeerRecipePage';
 
 const App = () => {
   return (

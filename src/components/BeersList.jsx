@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
-import { shallow } from "zustand/shallow";
-import { useRecipes } from "../store";
-import { useNavigate } from "react-router-dom";
-import { styled } from "styled-components";
-import { nanoid } from "nanoid";
+import { useEffect, useState } from 'react';
+import { shallow } from 'zustand/shallow';
+import { useNavigate } from 'react-router-dom';
+import { styled } from 'styled-components';
+import { nanoid } from 'nanoid';
+import { useRecipes } from 'store';
 
 export const BeersList = () => {
   const navigate = useNavigate();
 
   const { recipes, loading, error, getAllRecipes, deleteRecipes } = useRecipes(
-    (state) => ({
+    state => ({
       recipes: state.recipes,
       getAllRecipes: state.getAllRecipes,
       loading: state.loading,
@@ -27,10 +27,10 @@ export const BeersList = () => {
 
   const [selectedRecipes, setSelectedRecipes] = useState([]);
 
-  const toogleSelectedRecipes = (id) => {
-    setSelectedRecipes((prev) => {
+  const toogleSelectedRecipes = id => {
+    setSelectedRecipes(prev => {
       if (prev.includes(id)) {
-        return prev.filter((recipeId) => recipeId !== id);
+        return prev.filter(recipeId => recipeId !== id);
       } else {
         return [...prev, id];
       }
@@ -40,7 +40,7 @@ export const BeersList = () => {
     deleteRecipes(selectedRecipes);
     setSelectedRecipes([]);
   };
-  const handleNavigate = (id) => {
+  const handleNavigate = id => {
     navigate(`recipe/${id}`);
   };
 
@@ -63,8 +63,8 @@ export const BeersList = () => {
                     id="container-search"
                     style={{
                       border: selectedRecipes.includes(id)
-                        ? "2px solid #814EE7"
-                        : "none",
+                        ? '2px solid #814EE7'
+                        : 'none',
                     }}
                   >
                     <Wrapper>
@@ -101,52 +101,52 @@ export const BeersList = () => {
 };
 
 const Title = styled.h1({
-  margin: "20px 0",
-  textAlign: "center",
+  margin: '20px 0',
+  textAlign: 'center',
 });
 const RecipesList = styled.ul({
-  display: "flex",
-  alignItems: "center",
-  flexWrap: "wrap",
-  gap: "20px",
-  position: "relative",
-  margin: "20px auto 0",
+  display: 'flex',
+  alignItems: 'center',
+  flexWrap: 'wrap',
+  gap: '20px',
+  position: 'relative',
+  margin: '20px auto 0',
 });
 const RecipeItem = styled.div({
-  width: "250px",
-  height: "370px",
+  width: '250px',
+  height: '370px',
   boxShadow:
-    "12px 20px 9px rgba(46, 2, 100, 0.01), 7px 11px 8px rgba(46, 2, 100, 0.04), 3px 5px 6px rgba(46, 2, 100, 0.07), 1px 1px 3px rgba(46, 2, 100, 0.08), 0px 0px 0px rgba(46, 2, 100, 0.08)",
-  padding: "16px",
-  overflow: "hidden",
-  display: "flex",
-  flexDirection: "column",
-  gap: "8px",
-  "&:hover": {
-    cursor: "pointer",
+    '12px 20px 9px rgba(46, 2, 100, 0.01), 7px 11px 8px rgba(46, 2, 100, 0.04), 3px 5px 6px rgba(46, 2, 100, 0.07), 1px 1px 3px rgba(46, 2, 100, 0.08), 0px 0px 0px rgba(46, 2, 100, 0.08)',
+  padding: '16px',
+  overflow: 'hidden',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '8px',
+  '&:hover': {
+    cursor: 'pointer',
   },
 });
 const AboutBeerText = styled.div({
-  display: "flex",
-  alignItems: "flex-start",
-  gap: "20px",
+  display: 'flex',
+  alignItems: 'flex-start',
+  gap: '20px',
 });
 const Wrapper = styled.div({
-  display: "flex",
-  alignItems: "flex-start",
-  gap: "10px",
+  display: 'flex',
+  alignItems: 'flex-start',
+  gap: '10px',
 });
 const Button = styled.button({
-  position: "fixed",
+  position: 'fixed',
   top: 25,
   left: 5,
-  borderRadius: "8px",
-  background: "#814EE7",
-  padding: "8px 20px",
-  color: "white",
-  border: "none",
-  "&:hover": {
-    cursor: "pointer",
-    background: "#A076F5",
+  borderRadius: '8px',
+  background: '#814EE7',
+  padding: '8px 20px',
+  color: 'white',
+  border: 'none',
+  '&:hover': {
+    cursor: 'pointer',
+    background: '#A076F5',
   },
 });

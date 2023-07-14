@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { useRecipes } from '../store';
 import { styled } from 'styled-components';
 import { nanoid } from 'nanoid';
+import { useRecipes } from 'store';
 
 export const RecipeListItem = () => {
   const navigate = useNavigate();
