@@ -1,21 +1,21 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { useRecipes } from "../store";
-import { styled } from "styled-components";
-import { nanoid } from "nanoid";
+import { useNavigate, useParams } from 'react-router-dom';
+import { useRecipes } from '../store';
+import { styled } from 'styled-components';
+import { nanoid } from 'nanoid';
 
 export const RecipeListItem = () => {
   const navigate = useNavigate();
   const { recipeId } = useParams();
 
-  const { recipes } = useRecipes((state) => ({
+  const { recipes } = useRecipes(state => ({
     recipes: state.recipes,
   }));
-  const currentRecipe = recipes.find((recipe) => recipe.id == recipeId);
+  const currentRecipe = recipes.find(recipe => recipe.id === recipeId);
   const { name, abv, image_url, description, ingredients, method, volume } =
     currentRecipe;
 
   const handleNavigateGoBack = () => {
-    navigate("/");
+    navigate('/');
   };
   return (
     <>
@@ -108,40 +108,40 @@ export const RecipeListItem = () => {
 };
 
 const RecipeCard = styled.div({
-  width: "800px",
-  padding: "16px",
-  overflow: "hidden",
-  margin: "20px auto 0",
-  display: "flex",
-  flexDirection: "column",
-  gap: "10px",
+  width: '800px',
+  padding: '16px',
+  overflow: 'hidden',
+  margin: '20px auto 0',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '10px',
   boxShadow:
-    "12px 20px 9px rgba(46, 2, 100, 0.01), 7px 11px 8px rgba(46, 2, 100, 0.04), 3px 5px 6px rgba(46, 2, 100, 0.07), 1px 1px 3px rgba(46, 2, 100, 0.08), 0px 0px 0px rgba(46, 2, 100, 0.08)",
+    '12px 20px 9px rgba(46, 2, 100, 0.01), 7px 11px 8px rgba(46, 2, 100, 0.04), 3px 5px 6px rgba(46, 2, 100, 0.07), 1px 1px 3px rgba(46, 2, 100, 0.08), 0px 0px 0px rgba(46, 2, 100, 0.08)',
 });
 const TextWrapper = styled.div({
-  display: "flex",
-  alignItems: "flex-start",
-  gap: "70px",
+  display: 'flex',
+  alignItems: 'flex-start',
+  gap: '70px',
 });
 const Wrapper = styled.div({
-  display: "flex",
-  alignItems: "flex-start",
-  gap: "10px",
+  display: 'flex',
+  alignItems: 'flex-start',
+  gap: '10px',
 });
 const SubTitle = styled.p({
-  textDecoration: "underline",
+  textDecoration: 'underline',
 });
 const Button = styled.button({
-  position: "fixed",
+  position: 'fixed',
   top: 5,
   left: 5,
-  borderRadius: "8px",
-  background: "#814EE7",
-  padding: "8px 20px",
-  color: "white",
-  border: "none",
-  "&:hover": {
-    cursor: "pointer",
-    background: "#A076F5",
+  borderRadius: '8px',
+  background: '#814EE7',
+  padding: '8px 20px',
+  color: 'white',
+  border: 'none',
+  '&:hover': {
+    cursor: 'pointer',
+    background: '#A076F5',
   },
 });
