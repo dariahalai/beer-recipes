@@ -8,17 +8,26 @@ import { useRecipes } from 'store';
 export const BeersList = () => {
   const navigate = useNavigate();
 
-  const { recipes, loading, error, getAllRecipes, deleteRecipes } = useRecipes(
+  const {
+    recipes,
+    renderRecipes,
+    loading,
+    error,
+    getAllRecipes,
+    deleteRecipes,
+    lazyLoading,
+  } = useRecipes(
     state => ({
       recipes: state.recipes,
+      renderRecipes: state.renderRecipes,
       getAllRecipes: state.getAllRecipes,
       loading: state.loading,
       error: state.error,
       deleteRecipes: state.deleteRecipes,
+      lazyLoading: state.lazyLoading,
     }),
     shallow
   );
-
   useEffect(() => {
     if (recipes.length === 0) getAllRecipes();
   }, [getAllRecipes, recipes]);
@@ -43,7 +52,18 @@ export const BeersList = () => {
   const handleNavigate = id => {
     navigate(`recipe/${id}`);
   };
-
+  useEffect(() => {
+    const trackScroll = () => {
+      const scrollHeight = document.documentElement.scrollHeight;
+      const scrollTop =
+        document.documentElement.scrollTop || document.body.scrollTop;
+      const clientHeiht = document.documentElement.clientHeight;
+      if (scrollTop + clientHeiht >= scrollHeight) {
+        lazyLoading();
+      }
+    };
+    window.onscroll = trackScroll;
+  }, [lazyLoading, renderRecipes]);
   return (
     <>
       <Title>Beer`s Recipes List</Title>
@@ -51,46 +71,38 @@ export const BeersList = () => {
       {error && <p>{error.message}</p>}
       {shouldRender && (
         <RecipesList>
-          {recipes.map(
-            ({ id, name, abv, image_url, description }, index) =>
-              index < 15 && (
-                <li
-                  onContextMenu={() => toogleSelectedRecipes(id)}
-                  onClick={() => handleNavigate(id)}
-                  key={nanoid()}
-                >
-                  <RecipeItem
-                    id="container-search"
-                    style={{
-                      border: selectedRecipes.includes(id)
-                        ? '2px solid #814EE7'
-                        : 'none',
-                    }}
-                  >
-                    <Wrapper>
-                      <h5>Name:</h5>
-                      <p>{name}</p>
-                    </Wrapper>
-                    <Wrapper>
-                      <h5>Abv:</h5>
-                      <p> {abv}</p>
-                    </Wrapper>
-                    <AboutBeerText>
-                      <img
-                        src={image_url}
-                        alt={name}
-                        width="75px"
-                        height="90px"
-                      />
-                      <Wrapper>
-                        <h5>About:</h5>
-                        <p> {description}</p>
-                      </Wrapper>
-                    </AboutBeerText>
-                  </RecipeItem>
-                </li>
-              )
-          )}
+          {renderRecipes.map(({ id, name, abv, image_url, description }) => (
+            <li
+              onContextMenu={() => toogleSelectedRecipes(id)}
+              onClick={() => handleNavigate(id)}
+              key={nanoid()}
+            >
+              <RecipeItem
+                id="container-search"
+                style={{
+                  border: selectedRecipes.includes(id)
+                    ? '2px solid #814EE7'
+                    : 'none',
+                }}
+              >
+                <Wrapper>
+                  <h5>Name:</h5>
+                  <p>{name}</p>
+                </Wrapper>
+                <Wrapper>
+                  <h5>Abv:</h5>
+                  <p> {abv}</p>
+                </Wrapper>
+                <AboutBeerText>
+                  <img src={image_url} alt={name} width="75px" height="90px" />
+                  <Wrapper>
+                    <h5>About:</h5>
+                    <p> {description}</p>
+                  </Wrapper>
+                </AboutBeerText>
+              </RecipeItem>
+            </li>
+          ))}
         </RecipesList>
       )}
       {selectedRecipes.length !== 0 && (
