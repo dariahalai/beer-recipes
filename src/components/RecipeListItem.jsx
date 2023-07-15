@@ -10,7 +10,7 @@ export const RecipeListItem = () => {
   const { recipes } = useRecipes(state => ({
     recipes: state.recipes,
   }));
-  const currentRecipe = recipes.find(recipe => recipe.id === recipeId);
+  const currentRecipe = recipes.find(recipe => recipe.id === Number(recipeId));
   const { name, abv, image_url, description, ingredients, method, volume } =
     currentRecipe;
 
